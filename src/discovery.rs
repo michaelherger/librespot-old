@@ -202,7 +202,7 @@ pub fn discovery(handle: &Handle, config: ConnectConfig, device_id: String, port
     let serve = {
         let http = Http::new();
         debug!("Zeroconf server listening on 0.0.0.0:{}", port);
-        http.serve_addr_handle(&format!("0.0.0.0:{}", port).parse().unwrap(), &handle, move || Ok(discovery.clone())).unwrap()
+        http.serve_addr_handle(&format!("0.0.0.0:{}", port).parse().unwrap(), &handle, move || Ok(discovery.clone())).expect("Unable to bind Zeroconf to port")
     };
     let addr = serve.incoming_ref().local_addr();
     let server_future = {
